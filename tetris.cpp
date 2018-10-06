@@ -70,13 +70,17 @@ void J(char **shape){
 				shape[i][j] = ' ';
 }
 
-
-
-
 char **newPiece(){
 	char **shape = new char *[n];
 	for(int i = 0; i < n; i ++)
-		shape[i] = new char [n];
+		shape[i] = new char [n];	
+	
+	pickShape(shape);
+	
+	return shape;
+}
+
+void pickShape(char **shape){
 	
 	switch(rand()%7){
 		case 0:
@@ -101,9 +105,19 @@ char **newPiece(){
 			J(shape);
 			break;
 	}	
-		
 	
-	return shape;
+}
+
+void rotatePiece(char **shape){
+	for (int i = 0; i < n/ 2; i++){ 
+        for (int j = i; j < n-i-1; j++){ 
+            int temp = shape[i][j]; 
+  	 	    shape[i][j] = shape[j][n-1-i]; 
+	       	shape[j][n-1-i] = shape[n-1-i][n-1-j]; 
+	        shape[n-1-i][n-1-j] = shape[n-1-j][i]; 
+            shape[n-1-j][i] = temp; 
+        } 
+    }
 }
 
 void print(char** shape){
